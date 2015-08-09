@@ -27,7 +27,7 @@ def make_app():
     ])
 
 if __name__ == "__main__":
-    app = make_app()s
+    app = make_app()
     app.listen(8888)
     tornado.ioloop.IOLoop.current().start()
 ```
@@ -59,7 +59,7 @@ if __name__ == '__main__':
 ## Why?
 
 I just got bored of writing lots of code to add one route for an application I am currently developing using Tornado.
-So, I thought about a way to write Tornado apps as Flask applications (sort of).
+So, I thought about a way to write Tornado apps as Flask (sort of) apps.
 
 ## License
 
