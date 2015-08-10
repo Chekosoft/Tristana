@@ -94,7 +94,6 @@ Also, I didn't knew about tornadotools.
 ## To do
 
 - Documentation.
-- Static route handling.
 - Application configuration.
 
 
