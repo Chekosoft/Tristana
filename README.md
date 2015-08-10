@@ -73,14 +73,19 @@ def echo_websocket():
     return [open, on_message, on_close, check_origin]
 ```
 
-## Caveats
-
-- Not tested using the coroutine or asynchronous decorators.
-
 ## Why?
 
 I just got bored of writing lots of code to add one route for an application I am currently developing using Tornado.
 So, I thought about a way to write Tornado apps as Flask (sort of) apps.
+
+## Caveats
+
+- Not tested using the coroutine or asynchronous decorators.
+
+## To do
+
+- Static route handling.
+- Application configuration.
 
 ## License
 
