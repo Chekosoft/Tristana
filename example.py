@@ -1,5 +1,4 @@
 import tornado.ioloop
-import tornado.gen
 import Tristana
 
 @Tristana.route('/')
