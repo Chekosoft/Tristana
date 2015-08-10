@@ -82,10 +82,13 @@ def echo_websocket():
 Tristana.add_static(r'/static/(.*)', 'path/to/static/')
 ```
 
+
 ## Why?
 
 I just got bored of writing lots of code to add one route for an application I am currently developing using Tornado.
 So, I thought about a way to write Tornado apps as Flask (sort of) apps.
+
+Also, I didn't knew about tornadotools.
 
 
 ## To do
