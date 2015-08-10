@@ -21,6 +21,7 @@ import tornado.websocket
 _handler_names = []
 _handler_methods = {}
 _handler_routes = {}
+_static_folders = {}
 
 def route(route, websocket=False):
     def decorator(func):
@@ -38,6 +39,10 @@ def route(route, websocket=False):
 
     return decorator
 
+def add_static(static_url, static_folder):
+    _static_folders[static_url] = static_folder
+
+
 def app():
     handlers = []
     for name in _handler_names:
@@ -50,5 +55,7 @@ def app():
         )
         handlers.append((_handler_routes[name], handler))
 
+    for url, folder in _static_folders.iteritems():
+        handlers.append((url, tornado.web.StaticFileHandler, {'path': folder}))
 
     return tornado.web.Application(handlers)
