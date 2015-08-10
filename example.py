@@ -32,6 +32,8 @@ def socket_sample():
 
     return [get]
 
+Tristana.add_static(r'/static/(.*)', './web/static/')
+
 if __name__ == '__main__':
     app = Tristana.app()
     app.listen(8888)
