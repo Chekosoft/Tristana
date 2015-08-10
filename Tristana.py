@@ -16,32 +16,39 @@
 
 
 import tornado.web
+import tornado.websocket
 
-_controller_names = []
-_controller_methods = {}
-_controller_routes = {}
+_handler_names = []
+_handler_methods = {}
+_handler_routes = {}
 
-def route(route):
+def route(route, websocket=False):
     def decorator(func):
-        controller_name = func.__name__.capitalize()
+        handler_name = func.__name__.capitalize()
         methods = func()
         if type(methods) not in [list, tuple]:
-            raise Exception(u'Controller function must return a list or a tuple')
+            raise Exception(u'Handler function must return a list or a tuple')
 
-        _controller_names.append(controller_name)
-        _controller_methods[controller_name] = methods
-        _controller_routes[controller_name] = route
+        if websocket:
+            handler_name = 'WS' + handler_name
+
+        _handler_names.append(handler_name)
+        _handler_methods[handler_name] = methods
+        _handler_routes[handler_name] = route
 
     return decorator
 
 def app():
-    controllers = []
-    for name in _controller_names:
-        controller = type(
-            name, (tornado.web.RequestHandler,),
-            {method.__name__: method for method in _controller_methods[name]}
+    handlers = []
+    for name in _handler_names:
+        handler_type = tornado.websocket.WebSocketHandler \
+            if name.startswith('WS') else tornado.web.RequestHandler
+
+        handler = type(
+            name, (handler_type,),
+            {method.__name__: method for method in _handler_methods[name]}
         )
-        controllers.append((_controller_routes[name], controller))
+        handlers.append((_handler_routes[name], handler))
 
 
-    return tornado.web.Application(controllers)
+    return tornado.web.Application(handlers)

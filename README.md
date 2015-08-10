@@ -11,7 +11,7 @@ Still in development. Use at your own risk.
 
 ## How?
 
-The Tornado "Hello world" application
+The Tornado "Hello world" example application
 
 ```syntax=Python
 import tornado.ioloop
@@ -50,11 +50,32 @@ if __name__ == '__main__':
     tornado.ioloop.IOLoop.current().start()
 ```
 
+## What about WebSocketHandlers?
+
+The [websocket example](http://www.tornadoweb.org/en/stable/websocket.html) located
+in the documentation can be written as:
+
+```syntax=Python
+@Tristana.route('/websocket', websocket=True)
+def echo_websocket():
+    def check_origin(self, origin):
+        return True
+
+    def open(self):
+        print("Websocket opened")
+
+    def on_message(self, message):
+        self.write_message(u"You said: {}".format(message))
+
+    def on_close(self):
+        print("Websocket closed")
+
+    return [open, on_message, on_close, check_origin]
+```
+
 ## Caveats
 
 - Not tested using the coroutine or asynchronous decorators.
-- Only generates WebRequestHandler subclasses.
-
 
 ## Why?
 
